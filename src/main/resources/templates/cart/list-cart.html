@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+    <div>
+        <a href="/">
+            <button class="btn btn-outline-dark">TRANG CHU</button>
+        </a>
+    </div>
+    <form th:action="@{/cart/update}" method="post">
+        <table class="table">
+            <tr style="font-weight: bold">
+                <td>San Pham</td>
+                <td>Gia</td>
+                <td>Anh</td>
+                <td>So Luong <input type="submit" value="update"></td>
+                <td>Xoa</td>
+            </tr>
+            <tr th:each="item : ${session.cart}">
+                <td th:text="${item.product.name}"></td>
+                <td th:text="${item.product.price} * ${item.quantity}"></td>
+                <td><img width="80px" height="80px"
+                         th:src="${item.product.image}" alt=""></td>
+                <td>
+                    <input class="form-control" type="number" name="quantity" style="width: 50px"
+                           th:value="${item.quantity}">
+                </td>
+                <td><a th:href="@{/cart/remove/__${item.product.id}__}"
+                       onclick="return confirm('Delete product?')">Xoa</a></td>
+            </tr>
+            <tr>
+                <td>Tong gia</td>
+                <td th:text="${session.cart} == null ? 0 : ${session.total_price}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-info">Thanh Toan</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
