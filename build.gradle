@@ -30,7 +30,7 @@ dependencies {
 	//implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 	implementation('org.springframework.boot:spring-boot-starter-web')
-	//implementation('org.springframework.session:spring-session-jdbc')
+//	implementation('org.springframework.session:spring-session-jdbc')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	runtimeOnly('mysql:mysql-connector-java')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')

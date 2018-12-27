@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+                              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -15,22 +15,25 @@
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container">
-    <div>
-        <a href="/cart"> <button class="btn btn-outline-dark" >MY CART</button></a>
-    </div>
-    <table class="table">
-        <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td><img width="80px" height="80px" th:src="@{__${product.getImage()}__}" alt=""></td>
-            <td>
-                <a th:href="@{/cart/buy/__${product.id}__}" style="color: white; text-decoration: none;"> <button class="btn btn-info">Đặt Mua</button></a>
-            </td>
-        </tr>
-
-    </table>
-</div>
+<body class="container">
+<form action="/order/create-order" >
+<table class="table" th:each="item : ${session.order_cart}">
+    <tr style="font-weight: bold">
+        <td>San Pham</td>
+        <td>Anh</td>
+        <td>So Luong</td>
+        <td>Gia Tien</td>
+    </tr>
+    <tr>
+        <td><span th:text="${item.product.name}"></span></td>
+        <td><img width="80px" height="80px"
+                 th:src="${item.product.image}" alt=""></td>
+        <td>
+            <span th:text="${item.quantity}"></span>
+        </td>
+        <td><span th:text="${item.product.price} * ${item.quantity}"></span></td>
+    </tr>
+</table>
+</form>
 </body>
 </html>

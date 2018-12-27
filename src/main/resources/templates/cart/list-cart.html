@@ -14,7 +14,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("input[name='quantity']").change(function () {
+                $("form#auto-submit").submit();
+            });
+        });
 
+    </script>
 </head>
 <body>
 <div class="container">
@@ -23,7 +30,7 @@
             <button class="btn btn-outline-dark">TRANG CHU</button>
         </a>
     </div>
-    <form th:action="@{/cart/update}" method="post">
+    <form action="/cart/update" method="post" id="auto-submit">
         <table class="table">
             <tr style="font-weight: bold">
                 <td>San Pham</td>
@@ -32,6 +39,7 @@
                 <td>So Luong <input type="submit" value="update"></td>
                 <td>Xoa</td>
             </tr>
+
             <tr th:each="item : ${session.cart}">
                 <td th:text="${item.product.name}"></td>
                 <td th:text="${item.product.price} * ${item.quantity}"></td>
