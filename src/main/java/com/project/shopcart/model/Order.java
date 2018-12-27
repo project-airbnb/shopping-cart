@@ -1,6 +1,7 @@
 package com.project.shopcart.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,8 +17,15 @@ public class Order {
     private String address;
     private String phone;
     private String email;
+    private String date_time;
+    private List<Integer> quantities = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "order_product",
+            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
+    )
     private Set<Product> products = new HashSet<>();
 
     public Order() {

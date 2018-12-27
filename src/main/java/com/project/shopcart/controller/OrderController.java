@@ -32,7 +32,7 @@ public class OrderController {
     @PostMapping("/order-success")
     public String confirmPayment(@ModelAttribute("order") Order order, Model model, HttpSession session) {
         List<Item> order_cart = (List<Item>) session.getAttribute("cart");
-        Set<Product> products = new HashSet<Product>();
+        Set<Product> products = new HashSet<>();
         for (int i = 0; i < order_cart.size(); i++) {
             products.add(order_cart.get(i).getProduct());
         }

@@ -14,12 +14,7 @@ public class Product {
     private String image;
     private int price;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
+    @ManyToMany(mappedBy = "products")
     private Set<Order> orders = new HashSet<>();
 
     public Product() {
