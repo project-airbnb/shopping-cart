@@ -10,37 +10,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private ProductService productService;
-
     @GetMapping("/order")
-    public String payment(Model model, HttpSession session) {
-        List<Item> order_cart = (List<Item>) session.getAttribute("cart");
-        session.setAttribute("order_cart", order_cart);
+    public String payment(Model model) {
         model.addAttribute("order", new Order());
         return "cart/order-detail";
     }
 
-    @PostMapping("/order-create")
-    public String confirmPayment(@ModelAttribute("order") Order order, HttpSession session) {
-        List<Item> order_cart = (List<Item>) session.getAttribute("order_cart");
-        List<Product> products = new ArrayList<Product>();
+    @PostMapping("/order-success")
+    public String confirmPayment(@ModelAttribute("order") Order order, Model model, HttpSession session) {
+        List<Item> order_cart = (List<Item>) session.getAttribute("cart");
+        Set<Product> products = new HashSet<Product>();
         for (int i = 0; i < order_cart.size(); i++) {
             products.add(order_cart.get(i).getProduct());
         }
         order.setProducts(products);
         this.orderService.save(order);
+        model.addAttribute("order_success", order);
+        session.removeAttribute("cart");
+        session.removeAttribute("total_price");
         return "cart/order-success";
+    }
+
+    @GetMapping("/my-order")
+    public String myOrder(Model model) {
+        model.addAttribute("orders", this.orderService.findAll());
+        return "cart/order-list";
+    }
+
+    @GetMapping("/my-order/{id}")
+    public String myOrderDetail(@PathVariable("id") int id, Model model) {
+        Order order = this.orderService.findById(id);
+        model.addAttribute("order", order);
+        return "cart/order-my-view";
     }
 }

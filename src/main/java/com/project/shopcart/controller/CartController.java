@@ -85,8 +85,8 @@ public class CartController {
         List<Item> cart = (List<Item>) session.getAttribute("cart");
         for (int i = 0; i < cart.size(); i++) {
             cart.get(i).setQuantity(Integer.parseInt(quantities[i]));
-            session.setAttribute("total_price", priceAll(cart));
         }
+        session.setAttribute("total_price", priceAll(cart));
         return "redirect:/cart";
     }
 
