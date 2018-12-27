@@ -20,49 +20,137 @@
                 $("form#auto-submit").submit();
             });
         });
-
+        //thanh toan
+        function confirmOrder() {
+            var origin = window.location.origin;   // Returns base URL (https://example.com)
+            $(document).ready(function () {
+                window.location.href = origin + "/order";
+            });
+        }
     </script>
+    <style>
+
+        input[type="number"] {
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .number-input {
+            border: 2px solid #ddd;
+            display: inline-flex;
+        }
+
+        .number-input,
+        .number-input * {
+            box-sizing: border-box;
+        }
+
+        .number-input button {
+            outline: none;
+            -webkit-appearance: none;
+            background-color: transparent;
+            border: none;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            margin: 0;
+            position: relative;
+        }
+
+        .number-input button:before,
+        .number-input button:after {
+            display: inline-block;
+            position: absolute;
+            content: '';
+            width: 1rem;
+            height: 2px;
+            background-color: #212121;
+            transform: translate(-50%, -50%);
+        }
+
+        .number-input button.plus:after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .number-input input[type=number] {
+            font-family: sans-serif;
+            max-width: 5rem;
+            padding: .5rem;
+            border: solid #ddd;
+            border-width: 0 2px;
+            font-size: 2rem;
+            height: 3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div>
-        <a href="/">
-            <button class="btn btn-outline-dark">TRANG CHU</button>
-        </a>
-    </div>
-    <form action="/cart/update" method="post" id="auto-submit">
-        <table class="table">
-            <tr style="font-weight: bold">
-                <td>San Pham</td>
-                <td>Gia</td>
-                <td>Anh</td>
-                <td>So Luong <input type="submit" value="update"></td>
-                <td>Xoa</td>
-            </tr>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/">
+                <button class="btn btn-outline-dark">TRANG CHU</button>
+            </a>
+        </div>
+        <div class="col-md-9">
+            <form action="/cart/update" method="post" id="auto-submit">
+                <table class="table">
+                    <tr style="font-weight: bold">
+                        <td>San Pham</td>
+                        <td>Gia 1 san pham</td>
+                        <td>Gia tong san pham</td>
+                        <td>Anh</td>
+                        <td style="width: 150px">So Luong</td>
+                        <td style="width: 100px">Xoa</td>
+                    </tr>
 
-            <tr th:each="item : ${session.cart}">
-                <td th:text="${item.product.name}"></td>
-                <td th:text="${item.product.price} * ${item.quantity}"></td>
-                <td><img width="80px" height="80px"
-                         th:src="${item.product.image}" alt=""></td>
-                <td>
-                    <input class="form-control" type="number" name="quantity" style="width: 50px"
-                           th:value="${item.quantity}">
-                </td>
-                <td><a th:href="@{/cart/remove/__${item.product.id}__}"
-                       onclick="return confirm('Delete product?')">Xoa</a></td>
-            </tr>
-            <tr>
-                <td>Tong gia</td>
-                <td th:text="${session.cart} == null ? 0 : ${session.total_price}"></td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="btn btn-info">Thanh Toan</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+                    <tr th:each="item : ${session.cart}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.product.price}"></td>
+                        <td th:text="${item.product.price} * ${item.quantity}"></td>
+                        <td><img width="80px" height="80px"
+                                 th:src="${item.product.image}" alt=""></td>
+                        <td>
+                            <div class="name-input ">
+                                <button style="width:30px; float: left; border-radius: 0;"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                        class="btn btn-info btn-sm">-
+                                </button>
+                                <input style="width: 50px;border-radius: 0; float: left"
+                                       class="text-center form-control-sm" type="number" min="1" name="quantity"
+                                       th:value="${item.quantity}">
+                                <button style="width:30px; border-radius: 0;clear: both;"
+                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                        class="plus btn btn-info btn-sm">+
+                                </button>
+                            </div>
+                        </td>
+                        <td><a class="link" th:href="@{/cart/remove/__${item.product.id}__}"
+                               onclick="return confirm('Delete product?')">Xoa</a></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <h3>Tong gia</h3>
+                <h4 style="color: red" th:text="${session.cart} == null ? 0 : ${session.total_price}"></h4>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-outline-warning" id="order" onclick="confirmOrder();">Xac Nhan Thanh Toan
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

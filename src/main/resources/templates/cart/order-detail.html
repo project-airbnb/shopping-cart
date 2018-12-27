@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-                              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -16,24 +16,49 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="container">
-<form action="/order/create-order" >
-<table class="table" th:each="item : ${session.order_cart}">
-    <tr style="font-weight: bold">
-        <td>San Pham</td>
-        <td>Anh</td>
-        <td>So Luong</td>
-        <td>Gia Tien</td>
-    </tr>
-    <tr>
-        <td><span th:text="${item.product.name}"></span></td>
-        <td><img width="80px" height="80px"
-                 th:src="${item.product.image}" alt=""></td>
-        <td>
-            <span th:text="${item.quantity}"></span>
-        </td>
-        <td><span th:text="${item.product.price} * ${item.quantity}"></span></td>
-    </tr>
-</table>
-</form>
+    <form th:action="@{/order-create}" method="post" th:object="${order}">
+        <div class="row">
+        <div class="col-md-9">
+            <table class="table" th:each="item : ${session.order_cart}">
+                <tr style="font-weight: bold">
+                    <td>San Pham</td>
+                    <td>Anh</td>
+                    <td>So Luong</td>
+                    <td>Gia Tien</td>
+                </tr>
+                <tr>
+                    <td><span th:text="${item.product.name}"></span></td>
+                    <td><img width="80px" height="80px"
+                             th:src="${item.product.image}" alt=""></td>
+                    <td>
+                        <span th:text="${item.quantity}"></span>
+                    </td>
+                    <td><span th:text="${item.product.price} * ${item.quantity}"></span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Ho ten</label>
+                <input type="text" class="form-control" th:field="*{fullname}">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" th:field="*{email}">
+            </div>
+            <div class="form-group">
+                <label>So dien</label>
+                <input type="text" class="form-control" th:field="*{phone}">
+            </div>
+            <div class="form-group">
+                <label>Dia chi</label>
+                <input type="text" class="form-control" th:field="*{address}">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-warning" type="submit">Mua Hang</button>
+            </div>
+        </div>
+        </div>
+    </form>
 </body>
 </html>

@@ -2,7 +2,7 @@ package com.project.shopcart.service;
 
 import com.project.shopcart.model.Order;
 
-public interface OderService {
+public interface OrderService {
     Iterable<Order> findAll();
 
     Order findById(Integer id);

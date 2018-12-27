@@ -1,19 +1,22 @@
 package com.project.shopcart.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_cart")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
     private int quantity;
     private String fullname;
     private String address;
     private String phone;
     private String email;
+
+    @OneToMany(mappedBy = "order")
+    private List<Product> products;
 
     public Order() {
     }
@@ -24,14 +27,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getQuantity() {
@@ -72,5 +67,13 @@ public class Order {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

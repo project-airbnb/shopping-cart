@@ -87,14 +87,8 @@ public class CartController {
             cart.get(i).setQuantity(Integer.parseInt(quantities[i]));
             session.setAttribute("total_price", priceAll(cart));
         }
-        System.out.println(quantities.length);
         return "redirect:/cart";
     }
 
-    @PostMapping("/order")
-    public String payment(HttpSession session) {
-        List<Item> order_cart = (List<Item>) session.getAttribute("cart");
-        session.setAttribute("order_cart", order_cart);
-        return "cart/order-detail";
-    }
+
 }
