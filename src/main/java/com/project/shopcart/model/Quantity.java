@@ -3,6 +3,7 @@ package com.project.shopcart.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "quantity")
@@ -17,10 +18,17 @@ public class Quantity implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-//    @OneToMany(mappedBy = "quantity_id")
-//    private Order order;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public Quantity() {
+    }
+
+    public Quantity(int quantity_one_product, Product product, Order order) {
+        this.quantity_one_product = quantity_one_product;
+        this.product = product;
+        this.order = order;
     }
 
     public Integer getId() {
@@ -31,13 +39,6 @@ public class Quantity implements Serializable {
         this.id = id;
     }
 
-//    public Order getOrder() {
-//        return order;
-//    }
-//
-//    public void setOrder(Order order) {
-//        this.order = order;
-//    }
 
     public int getQuantity_one_product() {
         return quantity_one_product;
@@ -53,5 +54,13 @@ public class Quantity implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -19,11 +19,7 @@
             var d = new Date();
             var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " - " + d.getHours() +":"+ d.getMinutes() +":"+ d.getSeconds();
             $("input#date_time").val(strDate);
-        })
-        $(document).ready(function () {
-            var getTotalPrice = [[${session.total_price}]];
-            $("input#total_price").val(getTotalPrice);
-        })
+        });
     </script>
 </head>
 <body class="container">
@@ -52,7 +48,6 @@
             </table>
         </div>
         <div class="col-md-3">
-            <input type="hidden" th:value="${session.total_price}" id="total_price" th:field="*{total_price}">
             <div class="form-group">
                 <label>Ho ten</label>
                 <input type="text" class="form-control" th:field="*{fullname}">

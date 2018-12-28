@@ -19,10 +19,11 @@ public class Product {
     private Set<Order> orders = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Set<Quantity> quantities;
+    private Set<Quantity> quantities = new HashSet<>();
 
     public Product() {
     }
+
 
     public Integer getId() {
         return id;

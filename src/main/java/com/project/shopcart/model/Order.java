@@ -26,9 +26,8 @@ public class Order {
     )
     private Set<Product> products = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "quantity_id")
-//    private List<Quantity> quantities = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<Quantity> quantities = new HashSet<>();
 
     public Order() {
     }
@@ -105,11 +104,11 @@ public class Order {
         this.total_price = total_price;
     }
 
-//    public List<Quantity> getQuantities() {
-//        return quantities;
-//    }
-//
-//    public void setQuantities(List<Quantity> quantities) {
-//        this.quantities = quantities;
-//    }
+    public Set<Quantity> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(Set<Quantity> quantities) {
+        this.quantities = quantities;
+    }
 }
