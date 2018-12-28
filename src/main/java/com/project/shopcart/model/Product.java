@@ -2,6 +2,7 @@ package com.project.shopcart.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +17,9 @@ public class Product {
 
     @ManyToMany(mappedBy = "products")
     private Set<Order> orders = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<Quantity> quantities;
 
     public Product() {
     }
@@ -58,5 +62,13 @@ public class Product {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public Set<Quantity> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(Set<Quantity> quantities) {
+        this.quantities = quantities;
     }
 }

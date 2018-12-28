@@ -40,7 +40,6 @@ public class OrderController {
         this.orderService.save(order);
         model.addAttribute("order_success", order);
         session.removeAttribute("cart");
-        session.removeAttribute("total_price");
         return "cart/order-success";
     }
 

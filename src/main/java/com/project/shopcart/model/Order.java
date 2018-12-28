@@ -1,9 +1,7 @@
 package com.project.shopcart.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +16,7 @@ public class Order {
     private String phone;
     private String email;
     private String date_time;
-    private List<Integer> quantities = new ArrayList<>();
+    private int total_price;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -27,6 +25,10 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
     )
     private Set<Product> products = new HashSet<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "quantity_id")
+//    private List<Quantity> quantities = new ArrayList<>();
 
     public Order() {
     }
@@ -86,4 +88,28 @@ public class Order {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+    public String getDate_time() {
+        return date_time;
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_time = date_time;
+    }
+
+    public int getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
+    }
+
+//    public List<Quantity> getQuantities() {
+//        return quantities;
+//    }
+//
+//    public void setQuantities(List<Quantity> quantities) {
+//        this.quantities = quantities;
+//    }
 }

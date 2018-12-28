@@ -14,10 +14,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var d = new Date();
+            var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " - " + d.getHours() +":"+ d.getMinutes() +":"+ d.getSeconds();
+            $("input#date_time").val(strDate);
+        })
+        $(document).ready(function () {
+            var getTotalPrice = [[${session.total_price}]];
+            $("input#total_price").val(getTotalPrice);
+        })
+    </script>
 </head>
 <body class="container">
-    <form th:action="@{/order-success}" method="post" th:object="${order}">
-        <div class="row">
+<form th:action="@{/order-success}" method="post" th:object="${order}">
+    <div class="row">
         <div class="col-md-9">
             <table class="table" th:each="item : ${session.cart}">
                 <tr style="font-weight: bold">
@@ -35,9 +46,13 @@
                     </td>
                     <td><span th:text="${item.product.price} * ${item.quantity}"></span></td>
                 </tr>
+                <tr>
+                    <td colspan="4" th:text="${session.total_price}"></td>
+                </tr>
             </table>
         </div>
         <div class="col-md-3">
+            <input type="hidden" th:value="${session.total_price}" id="total_price" th:field="*{total_price}">
             <div class="form-group">
                 <label>Ho ten</label>
                 <input type="text" class="form-control" th:field="*{fullname}">
@@ -55,14 +70,14 @@
                 <input type="text" class="form-control" th:field="*{address}">
             </div>
             <div class="form-group">
-                <label>SL</label>
-                <input type="number" class="form-control" th:field="*{quantity}">
+                <label>Thoi Gian</label>
+                <input type="hidden" id="date_time" th:field="*{date_time}">
             </div>
             <div class="form-group">
                 <button class="btn btn-outline-warning" type="submit">Mua Hang</button>
             </div>
         </div>
-        </div>
-    </form>
+    </div>
+</form>
 </body>
 </html>

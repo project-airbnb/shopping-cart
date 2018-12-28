@@ -17,15 +17,17 @@
 </head>
 <body>
 <h1>Thong bao</h1>
-<div>
-    <p th:text="${order_success.fullname}"></p>
-    <p th:text="${order_success.address}"></p>
-    <p th:text="${order_success.getEmail()}"></p>
-    <p th:each="product : ${order_success.getProducts()}">
-        <span th:text="${product.name}"></span> |
-        <span th:text="${product.price}"></span>
-    </p>
-    <p th:text="${order_success.quantity}"></p>
+<div class="container">
+    <div class="row">
+        <p th:text="${order_success.fullname}"></p>
+        <p th:text="${order_success.address}"></p>
+        <p th:text="${order_success.getEmail()}"></p>
+        <p th:each="product : ${order_success.getProducts()}">
+            <span th:text="${product.name}"></span> |
+            <span th:text="${product.price}"></span>
+        </p>
+        <p th:text="${order_success.total_price}"></p>
+    </div>
 </div>
 </body>
 </html>
