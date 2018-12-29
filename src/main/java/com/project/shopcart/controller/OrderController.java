@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Controller
-public class OrderController {
+public class OrderController extends GetUrlProduct{
     @Autowired
     private OrderService orderService;
 
@@ -69,6 +70,9 @@ public class OrderController {
     public String myOrderDetail(@PathVariable("id") int id, Model model) {
         Order order = this.orderService.findById(id);
         model.addAttribute("order", order);
+        //get url product
+        List<Product> products = new ArrayList<Product>(order.getProducts());
+        model.addAttribute("url_product", covertStringToURL(products));
         return "cart/order-my-view";
     }
 }

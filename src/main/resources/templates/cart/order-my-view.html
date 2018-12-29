@@ -25,16 +25,18 @@
                 <td>So Luong</td>
                 <td>Tong Gia</td>
             </tr>
-            <tr th:each="product : ${order.getProducts()}">
+            <tr th:each="product,p : ${order.getProducts()}">
                 <th:block th:each="quantity : ${order.getQuantities()}" th:if="${quantity.product.id} == ${product.id}">
-                    <td><a th:href="@{/product/__${product.id}__}" th:text="${product.name}"></a></td>
-                    <td th:text="${product.price}"></td>
-                    <td>
-                        <span th:text="${quantity.getQuantity_one_product()}"></span>
-                    </td>
-                    <td>
-                        <span th:text="${product.price} * ${quantity.getQuantity_one_product()}"></span>
-                    </td>
+                    <th:block th:each="url_name,u : ${url_product}" th:if="${p.index} == ${u.index}">
+                        <td><a th:href="@{/__${url_name + '-' + product.id}__}" th:text="${product.name}"></a></td>
+                        <td th:text="${product.price}"></td>
+                        <td>
+                            <span th:text="${quantity.getQuantity_one_product()}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${product.price} * ${quantity.getQuantity_one_product()}"></span>
+                        </td>
+                    </th:block>
                 </th:block>
             </tr>
         </table>
