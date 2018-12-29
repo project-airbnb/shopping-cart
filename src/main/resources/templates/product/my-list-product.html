@@ -17,28 +17,17 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <table class="table">
-            <tr style="font-weight: bold;">
-                <td>San Pham</td>
-                <td>Don Gia</td>
-                <td>So Luong</td>
-                <td>Tong Gia</td>
-            </tr>
-            <tr th:each="product : ${order.getProducts()}">
-                <th:block th:each="quantity : ${order.getQuantities()}" th:if="${quantity.product.id} == ${product.id}">
-                    <td><a th:href="@{/__${product.url + '-' + product.id}__}" th:text="${product.name}"></a></td>
-                    <td th:text="${product.price}"></td>
-                    <td>
-                        <span th:text="${quantity.getQuantity_one_product()}"></span>
-                    </td>
-                    <td>
-                        <span th:text="${product.price} * ${quantity.getQuantity_one_product()}"></span>
-                    </td>
-                </th:block>
-            </tr>
-        </table>
-    </div>
+    <a href="/">Back home</a>
+    <a href="/create-product">Create product</a>
+    <table class="table">
+        <tr th:each="product : ${products}">
+            <td><img th:src="${product.image}" width="40px" alt=""></td>
+            <td><a th:href="@{/__${product.url + '-' + product.id}__}" th:text="${product.name}"></a></td>
+            <td><a th:href="@{/edit-product/__${product.id}__}">Sua</a></td>
+            <td><a th:href="@{/delete-product/__${product.id}__}">Xoa</a></td>
+        </tr>
+    </table>
 </div>
+
 </body>
 </html>

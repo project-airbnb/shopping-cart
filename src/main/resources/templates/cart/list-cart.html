@@ -18,7 +18,7 @@
         function updateQuantity() {
             $(document).ready(function () {
                 //$("input[name='quantity']").change(function () {
-                    $("form#auto-submit").submit();
+                $("form#auto-submit").submit();
                 //});
             });
         }
@@ -117,7 +117,8 @@
                     </tr>
 
                     <tr th:each="item : ${session.cart}">
-                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.product.name}"><a
+                                th:href="@{__${item.product.url + '-' + item.product.id}__}"></a></td>
                         <td th:text="${item.product.price}"></td>
                         <td th:text="${item.product.quantity} > 0 ? (${item.product.price} * ${item.quantity}) : 0"></td>
                         <td><img width="80px" height="80px"
@@ -129,7 +130,8 @@
                                         class="btn btn-info btn-sm">-
                                 </button>
                                 <input style="width: 50px;border-radius: 0; float: left"
-                                       class="text-center form-control-sm" type="number" min="1" th:max="${item.product.quantity}" name="quantity"
+                                       class="text-center form-control-sm" type="number" min="1"
+                                       th:max="${item.product.quantity}" name="quantity"
                                        th:value="${item.quantity}" onchange="updateQuantity();">
                                 <button style="width:30px; border-radius: 0;clear: both;"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()"

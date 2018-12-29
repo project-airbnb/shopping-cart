@@ -13,6 +13,7 @@ public class Product {
     private String name;
     private String image;
     private int price;
+    private String url;
     private int quantity;
 
     @ManyToMany(mappedBy = "products")
@@ -79,5 +80,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

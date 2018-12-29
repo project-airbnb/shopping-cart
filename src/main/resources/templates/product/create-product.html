@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Product</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -17,28 +17,26 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <table class="table">
-            <tr style="font-weight: bold;">
-                <td>San Pham</td>
-                <td>Don Gia</td>
-                <td>So Luong</td>
-                <td>Tong Gia</td>
-            </tr>
-            <tr th:each="product : ${order.getProducts()}">
-                <th:block th:each="quantity : ${order.getQuantities()}" th:if="${quantity.product.id} == ${product.id}">
-                    <td><a th:href="@{/__${product.url + '-' + product.id}__}" th:text="${product.name}"></a></td>
-                    <td th:text="${product.price}"></td>
-                    <td>
-                        <span th:text="${quantity.getQuantity_one_product()}"></span>
-                    </td>
-                    <td>
-                        <span th:text="${product.price} * ${quantity.getQuantity_one_product()}"></span>
-                    </td>
-                </th:block>
-            </tr>
-        </table>
-    </div>
+    <form action="/create-product" th:object="${product}" method="post">
+        <div class="form-group">
+            <label>Ten San Pham</label>
+            <input type="text" class="form-control" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" class="form-control" th:field="*{price}">
+        </div>
+        <div class="form-group">
+            <label>So Luong</label>
+            <input type="number"class="form-control" th:field="*{quantity}">
+        </div>
+        <div class="form-group">
+            <label>Duong dan anh</label>
+            <input type="text" class="form-control" th:field="*{image}">
+        </div>
+
+        <input type="submit" class="btn btn-info" value="Tao San Pham">
+    </form>
 </div>
 </body>
 </html>

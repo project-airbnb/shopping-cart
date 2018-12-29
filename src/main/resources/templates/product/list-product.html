@@ -103,27 +103,25 @@
                 <div class="col-12 col-lg-3 box" style="margin-bottom: 10px; padding-bottom: 10px"
                      th:each="product, p_i : ${products}">
                     <!--Get Url tu tieu de bai viet-->
-                    <th:block th:each="url, u_i : ${name_urls}" th:if="${p_i.index} == ${u_i.index}">
-                        <a th:href="@{/__${url + '-' + product.id}__}" th:title="${product.name}">
-                            <img th:src="@{__${product.getImage()}__}" alt="" class="card-img-top">
-                        </a>
-                        <h4 style="font-size: 13px">
-                            <a th:href="@{/__${url + '-' + product.id}__}" th:title="${product.name}"
-                               th:text="${#strings.length(product.name)} < 50 ? ${product.name} : ${#strings.substring(product.name, 0, 49) + '...'}"></a>
-                        </h4>
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="btn-sm btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
-                            </div>
-                            <div class="col-12">
-                                <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
-                                    <img width="20px" height="20px"
-                                         src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
-                                    Đặt Mua
-                                </a>
-                            </div>
+                    <a th:href="@{/__${product.url + '-' + product.id}__}" th:title="${product.name}">
+                        <img th:src="@{__${product.getImage()}__}" alt="" class="card-img-top">
+                    </a>
+                    <h4 style="font-size: 13px">
+                        <a th:href="@{/__${product.url + '-' + product.id}__}" th:title="${product.name}"
+                           th:text="${#strings.length(product.name)} < 50 ? ${product.name} : ${#strings.substring(product.name, 0, 49) + '...'}"></a>
+                    </h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="btn-sm btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
                         </div>
-                    </th:block>
+                        <div class="col-12">
+                            <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
+                                <img width="20px" height="20px"
+                                     src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
+                                Đặt Mua
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
