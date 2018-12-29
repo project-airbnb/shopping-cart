@@ -31,7 +31,7 @@
     </script>
     <style>
         .box:hover {
-            box-shadow: 0 0 33px rgba(33,33,33,.2);
+            box-shadow: 0 0 33px rgba(33, 33, 33, .2);
         }
     </style>
 </head>
@@ -100,27 +100,28 @@
 
         <div class="col">
             <div class="row">
-                <div class="col-12 col-lg-4 d-flex align-items-stretch" th:each="product : ${products}">
-                    <div class="box">
-                        <img th:src="@{__${product.getImage()}__}" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h6 class="card-title">
-                                <a th:href="@{/}" th:title="${product.name}"
-                                   th:text="${#strings.length(product.name)} < 50 ? ${product.name} : ${#strings.substring(product.name, 0, 49) + '...'}"></a>
-                            </h6>
-                            <p class="card-text" th:text="${'So luong: ' + product.quantity}"></p>
-                            <div class="row">
-                                <div class="col-12">
-                                    <p class="btn btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
-                                </div>
-                                <div class="col-12">
-                                    <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
-                                        <img width="20px" height="20px"
-                                             src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
-                                        Đặt Mua
-                                    </a>
-                                </div>
-                            </div>
+                <div class="col-12 col-lg-3 box" style="margin-bottom: 10px; padding-bottom: 10px"
+                     th:each="product, p_index : ${products}">
+                    <th:block th:each="url, u_index : ${name_urls}" th:if="${p_index.index} == ${u_index.index}">
+                        <a th:href="@{/__${url + '-' + product.id}__}" th:title="${product.name}">
+                            <img th:src="@{__${product.getImage()}__}" alt="" class="card-img-top">
+                        </a>
+                    </th:block>
+                    <h4 style="font-size: 13px">
+                        <a th:href="@{/}" th:title="${product.name}"
+                           th:text="${#strings.length(product.name)} < 50 ? ${product.name} : ${#strings.substring(product.name, 0, 49) + '...'}"></a>
+                    </h4>
+                    <!--<p class="card-text" th:text="${'So luong: ' + product.quantity}"></p>-->
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="btn-sm btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
+                        </div>
+                        <div class="col-12">
+                            <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
+                                <img width="20px" height="20px"
+                                     src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
+                                Đặt Mua
+                            </a>
                         </div>
                     </div>
                 </div>
