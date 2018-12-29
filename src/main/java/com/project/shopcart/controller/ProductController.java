@@ -64,4 +64,11 @@ public class ProductController extends GetUrlProduct {
         model.addAttribute("products", this.productService.findAll());
         return "product/my-list-product";
     }
+
+    @GetMapping("/delete-product/{id}")
+    public String deleteProduct(@PathVariable("id")int id) {
+        this.productService.delete(id);
+        return "product/edit-product";
+    }
+
 }

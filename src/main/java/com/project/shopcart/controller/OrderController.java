@@ -29,7 +29,7 @@ public class OrderController extends GetUrlProduct{
     @Autowired
     private QuantityService quantityService;
 
-    @GetMapping("/order")
+    @GetMapping("/order-authentication")
     public String payment(Model model) {
         model.addAttribute("order", new Order());
         return "cart/order-detail";
@@ -41,7 +41,9 @@ public class OrderController extends GetUrlProduct{
         List<Item> order_cart = (List<Item>) session.getAttribute("cart");
         Set<Product> products = new HashSet<>();
         for (int i = 0; i < order_cart.size(); i++) {
-            products.add(order_cart.get(i).getProduct());
+            if (order_cart.get(i).getProduct().getQuantity() > 0){
+                products.add(order_cart.get(i).getProduct());
+            }
         }
         order.setProducts(products);
         order.setTotal_price((Integer) session.getAttribute("total_price"));

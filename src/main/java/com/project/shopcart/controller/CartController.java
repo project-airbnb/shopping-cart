@@ -59,7 +59,9 @@ public class CartController {
         int total_price = 0;
         if (cart.size() > 0) {
             for (int i = 0; i < cart.size(); i++) {
-                total_price += (cart.get(i).getQuantity() * cart.get(i).getProduct().getPrice());
+                if (cart.get(i).getProduct().getQuantity() > 0){
+                    total_price += (cart.get(i).getQuantity() * cart.get(i).getProduct().getPrice());
+                }
             }
         }
         return total_price;
@@ -84,7 +86,9 @@ public class CartController {
         String[] quantities = request.getParameterValues("quantity");
         List<Item> cart = (List<Item>) session.getAttribute("cart");
         for (int i = 0; i < cart.size(); i++) {
-            cart.get(i).setQuantity(Integer.parseInt(quantities[i]));
+            if (cart.get(i).getProduct().getQuantity() > 0){
+                cart.get(i).setQuantity(Integer.parseInt(quantities[i]));
+            }
         }
         session.setAttribute("total_price", priceAll(cart));
         return "redirect:/cart";

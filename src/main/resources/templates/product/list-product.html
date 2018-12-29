@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class=".container-fluid">
     <div class="row">
         <div class="col-md-6"></div>
         <div class="col-md-6">
@@ -115,10 +115,12 @@
                             <p class="btn-sm btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
                         </div>
                         <div class="col-12">
-                            <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
+                            <a th:href="@{/cart/buy/__${product.id}__}"
+                               th:class="${product.quantity} <= 0 ? 'btn btn-warning btn-block disabled' : 'btn btn-warning btn-block '">
                                 <img width="20px" height="20px"
                                      src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
-                                Đặt Mua
+                                <span th:if="${product.quantity} <= 0">Đã Hết Hàng</span>
+                                <span th:if="${product.quantity} > 0">Đặt Mua</span>
                             </a>
                         </div>
                     </div>

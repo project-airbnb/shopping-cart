@@ -27,11 +27,14 @@
         function confirmOrder() {
             var origin = window.location.origin;   // Returns base URL (https://example.com)
             $(document).ready(function () {
-                window.location.href = origin + "/order";
+                window.location.href = origin + "/order-authentication";
             });
         }
     </script>
     <style>
+        .disabled-my-cart {
+            background-color: #dddddd;
+        }
 
         input[type="number"] {
             -webkit-appearance: textfield;
@@ -116,9 +119,9 @@
                         <td style="width: 100px">Xoa</td>
                     </tr>
 
-                    <tr th:each="item : ${session.cart}">
-                        <td th:text="${item.product.name}"><a
-                                th:href="@{__${item.product.url + '-' + item.product.id}__}"></a></td>
+                    <tr th:each="item : ${session.cart}" th:class="${item.product.quantity} <= 0 ? 'disabled-my-cart' : ''">
+                        <td><a th:href="@{__${item.product.url + '-' + item.product.id}__}"
+                                th:text="${item.product.name}"></a></td>
                         <td th:text="${item.product.price}"></td>
                         <td th:text="${item.product.quantity} > 0 ? (${item.product.price} * ${item.quantity}) : 0"></td>
                         <td><img width="80px" height="80px"
@@ -163,7 +166,7 @@
                 <h3>Tong gia</h3>
                 <h4 style="color: red" th:text="${session.cart} == null ? 0 : ${session.total_price}"></h4>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" >
                 <button class="btn btn-outline-warning" id="order" onclick="confirmOrder();">Xac Nhan Thanh Toan
                 </button>
             </div>

@@ -24,7 +24,7 @@
             <td><img th:src="${product.image}" width="40px" alt=""></td>
             <td><a th:href="@{/__${product.url + '-' + product.id}__}" th:text="${product.name}"></a></td>
             <td><a th:href="@{/edit-product/__${product.id}__}">Sua</a></td>
-            <td><a th:href="@{/delete-product/__${product.id}__}">Xoa</a></td>
+            <td><a th:href="@{/delete-product/__${product.id}__}" onclick="return confirm('Delete product now???')">Xoa</a></td>
         </tr>
     </table>
 </div>

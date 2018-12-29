@@ -17,7 +17,7 @@
     <script>
         $(document).ready(function () {
             var d = new Date();
-            var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " - " + d.getHours() +":"+ d.getMinutes() +":"+ d.getSeconds();
+            var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
             $("input#date_time").val(strDate);
         });
     </script>
@@ -26,15 +26,15 @@
 <form th:action="@{/order-success}" method="post" th:object="${order}">
     <div class="row">
         <div class="col-md-9">
-            <table class="table" th:each="item : ${session.cart}">
+            <table class="table">
                 <tr style="font-weight: bold">
                     <td>San Pham</td>
                     <td>Anh</td>
                     <td>So Luong</td>
                     <td>Gia Tien</td>
                 </tr>
-                <tr>
-                    <td><span th:text="${item.product.name}"></span></td>
+                <tr th:each="item : ${session.cart}" th:if="${item.product.quantity} > 0">
+                    <td><a th:href="@{/__${item.product.url + '-' + item.product.id}__}" th:text="${item.product.name}"></a></td>
                     <td><img width="80px" height="80px"
                              th:src="${item.product.image}" alt=""></td>
                     <td>
