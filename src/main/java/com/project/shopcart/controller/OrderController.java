@@ -36,21 +36,24 @@ public class OrderController {
 
     @PostMapping("/order-success")
     public String confirmPayment(@ModelAttribute("order") Order order, Model model, HttpSession session) {
-        //get product + quantity
+        //get product
         List<Item> order_cart = (List<Item>) session.getAttribute("cart");
         Set<Product> products = new HashSet<>();
-        Set<Quantity> quantities = new HashSet<Quantity>();
         for (int i = 0; i < order_cart.size(); i++) {
             products.add(order_cart.get(i).getProduct());
         }
-//        for (int i = 0; i < order_cart.size(); i++) {
-//            this.quantityService.save(new Quantity(order_cart.get(i).getQuantity(), products));
-//        }
-
         order.setProducts(products);
         order.setTotal_price((Integer) session.getAttribute("total_price"));
         this.orderService.save(order);
         model.addAttribute("order_success", order);
+
+        //get quantity of one product
+        for (int i = 0; i < order_cart.size(); i++) {
+            int quantity_one_product = order_cart.get(i).getQuantity();
+            Product this_product =  order_cart.get(i).getProduct();
+            this.quantityService.save(new Quantity(quantity_one_product, this_product, order));
+        }
+
         session.removeAttribute("cart");
         session.removeAttribute("total_price");
         return "redirect:/my-order";

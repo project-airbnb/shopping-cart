@@ -119,23 +119,36 @@
                     <tr th:each="item : ${session.cart}">
                         <td th:text="${item.product.name}"></td>
                         <td th:text="${item.product.price}"></td>
-                        <td th:text="${item.product.price} * ${item.quantity}"></td>
+                        <td th:text="${item.product.quantity} > 0 ? (${item.product.price} * ${item.quantity}) : 0"></td>
                         <td><img width="80px" height="80px"
                                  th:src="${item.product.image}" alt=""></td>
                         <td>
-                            <div class="name-input ">
+                            <div class="name-input" th:if="${item.product.quantity} > 0">
                                 <button style="width:30px; float: left; border-radius: 0;"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                         class="btn btn-info btn-sm">-
                                 </button>
                                 <input style="width: 50px;border-radius: 0; float: left"
-                                       class="text-center form-control-sm" type="number" min="1" name="quantity"
-                                       th:value="${item.quantity}" onclick="updateQuantity();">
+                                       class="text-center form-control-sm" type="number" min="1" th:max="${item.product.quantity}" name="quantity"
+                                       th:value="${item.quantity}" onchange="updateQuantity();">
                                 <button style="width:30px; border-radius: 0;clear: both;"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                         class="plus btn btn-info btn-sm">+
                                 </button>
                             </div>
+                            <div class="name-input" th:if="${item.product.quantity} <= 0">
+                                <button type="button" style="width:30px; float: left; border-radius: 0;"
+                                        class="btn btn-info btn-sm">-
+                                </button>
+                                <input style="width: 50px;border-radius: 0; float: left"
+                                       class="text-center form-control-sm" type="number" name="quantity"
+                                       th:value="0" readonly>
+                                <button type="button" style="width:30px; border-radius: 0;clear: both;"
+                                        class="plus btn btn-info btn-sm">+
+                                </button>
+                                <span style="color: red;">Het hang</span>
+                            </div>
+                            <span th:text="${'so luong: '+ item.getProduct().quantity}"></span>
                         </td>
                         <td><a class="link" th:href="@{/cart/remove/__${item.product.id}__}"
                                onclick="return confirm('Delete product?')">Xoa</a></td>

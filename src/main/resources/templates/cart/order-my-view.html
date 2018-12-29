@@ -26,10 +26,16 @@
                 <td>Tong Gia</td>
             </tr>
             <tr th:each="product : ${order.getProducts()}">
-                <td><a th:href="@{/product/__${product.id}__}" th:text="${product.name}"></a></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${'1'}"></td>
-                <td th:text="${product.price}"></td>
+                <th:block th:each="quantity : ${order.getQuantities()}" th:if="${quantity.product.id} == ${product.id}">
+                    <td><a th:href="@{/product/__${product.id}__}" th:text="${product.name}"></a></td>
+                    <td th:text="${product.price}"></td>
+                    <td>
+                        <span th:text="${quantity.getQuantity_one_product()}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${product.price} * ${quantity.getQuantity_one_product()}"></span>
+                    </td>
+                </th:block>
             </tr>
         </table>
     </div>

@@ -21,6 +21,7 @@
                 window.location.href = origin + "/cart";
             });
         }
+
         function redirectOrder() {
             var origin = window.location.origin;   // Returns base URL (https://example.com)
             $(document).ready(function () {
@@ -28,6 +29,11 @@
             });
         }
     </script>
+    <style>
+        .box:hover {
+            box-shadow: 0 0 33px rgba(33,33,33,.2);
+        }
+    </style>
 </head>
 <body>
 <!--login-->
@@ -58,24 +64,68 @@
 </div>
 <div class="container">
     <div class="row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6">
-        <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">LOGIN</button>
-        <button class="btn btn-outline-dark" id="cart" onclick="redirectCart();">MY CART</button>
-        <button class="btn btn-outline-dark" id="order" onclick="redirectOrder();">MY ORDER</button>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">LOGIN</button>
+            <button class="btn btn-outline-dark" id="cart" onclick="redirectCart();">MY CART</button>
+            <button class="btn btn-outline-dark" id="order" onclick="redirectOrder();">MY ORDER</button>
+        </div>
     </div>
-    <table class="table">
-        <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td><img width="80px" height="80px" th:src="@{__${product.getImage()}__}" alt=""></td>
-            <td>
-                <a th:href="@{/cart/buy/__${product.id}__}" style="color: white; text-decoration: none;">
-                    <button class="btn btn-info">Đặt Mua</button>
-                </a>
-            </td>
-        </tr>
-    </table>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories
+                </div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
+                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
+                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
+                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
+                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                </ul>
+            </div>
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                <div class="card-body">
+                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff"/>
+                    <h5 class="card-title">Product title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <p class="bloc_left_price">99.00 $</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="row">
+                <div class="col-12 col-lg-4 d-flex align-items-stretch" th:each="product : ${products}">
+                    <div class="box">
+                        <img th:src="@{__${product.getImage()}__}" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <a th:href="@{/}" th:title="${product.name}"
+                                   th:text="${#strings.length(product.name)} < 50 ? ${product.name} : ${#strings.substring(product.name, 0, 49) + '...'}"></a>
+                            </h6>
+                            <p class="card-text" th:text="${'So luong: ' + product.quantity}"></p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="btn btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
+                                </div>
+                                <div class="col-12">
+                                    <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
+                                        <img width="20px" height="20px"
+                                             src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
+                                        Đặt Mua
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
