@@ -29,6 +29,9 @@ public class OrderController extends GetUrlProduct{
     @Autowired
     private QuantityService quantityService;
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/order-authentication")
     public String payment(Model model) {
         model.addAttribute("order", new Order());
@@ -55,6 +58,10 @@ public class OrderController extends GetUrlProduct{
             int quantity_one_product = order_cart.get(i).getQuantity();
             Product this_product =  order_cart.get(i).getProduct();
             this.quantityService.save(new Quantity(quantity_one_product, this_product, order));
+
+            //dat hang thanh cong tru so luong san pham co trong kho
+            this_product.setQuantity(this_product.getQuantity() - quantity_one_product);
+            this.productService.save(this_product);
         }
 
         session.removeAttribute("cart");

@@ -10,7 +10,6 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int quantity;
     private String fullname;
     private String address;
     private String phone;
@@ -38,14 +37,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getFullname() {
