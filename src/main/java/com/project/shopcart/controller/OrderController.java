@@ -33,7 +33,12 @@ public class OrderController extends GetUrlProduct{
     private ProductService productService;
 
     @GetMapping("/order-authentication")
-    public String payment(Model model) {
+    public String payment(Model model, HttpSession session) {
+        List<Item> order_cart = (List<Item>) session.getAttribute("cart");
+        if (order_cart == null || order_cart.size() <= 0){
+            session.removeAttribute("total_price");
+            return "redirect:/";
+        }
         model.addAttribute("order", new Order());
         return "cart/order-detail";
     }

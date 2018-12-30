@@ -23,13 +23,22 @@
         </div>
         <div class="col-md-7">
             <h2 th:text="${product.name}"></h2>
-            <p th:utext="${'<b>Gia:</b> '+ product.getPrice() + ' VND'}"></p>
+            <p th:utext="${'<b>Gia:</b> '+ #numbers.formatDecimal(product.getPrice(),0, 'DEFAULT', 0, 'DEFAULT') + ' VND'}"></p>
             <p th:utext="${'<b>So luong:</b> ' + product.quantity}"></p>
-            <a th:href="@{/cart/buy/__${product.id}__}" class="btn btn-warning btn-block">
+            <a th:if="${product.quantity > 0}" th:href="@{/cart/buy/__${product.id}__}"
+               class="btn btn-warning btn-block">
                 <img width="20px" height="20px"
                      src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
                 Đặt Mua
             </a>
+            <form action="/" method="post" th:if="${product.quantity <= 0}">
+                <div class="row">
+                    <span class="col-md-12" style="color: red;">Đã hết hàng</span>
+                    <input class="form-control col-md-7" type="email"
+                           placeholder="De lai email nhan thong bao khi co hang">
+                    <button type="submit" class="btn btn-info col-md-5">Thông báo khi có hàng</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

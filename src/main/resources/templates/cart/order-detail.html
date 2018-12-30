@@ -40,10 +40,10 @@
                     <td>
                         <span th:text="${item.quantity}"></span>
                     </td>
-                    <td><span th:text="${item.product.price} * ${item.quantity}"></span></td>
+                    <td><span th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 0, 'DEFAULT', 0, 'DEFAULT') + ' VND'} "></span></td>
                 </tr>
                 <tr>
-                    <td colspan="4" th:text="${session.total_price}"></td>
+                    <td colspan="4" th:text="${#numbers.formatDecimal(session.total_price, 0, 'DEFAULT', 0, 'DEFAULT') + ' VND'}"></td>
                 </tr>
             </table>
         </div>

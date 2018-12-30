@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class=".container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-md-6"></div>
         <div class="col-md-6">
@@ -112,7 +112,7 @@
                     </h4>
                     <div class="row">
                         <div class="col-12">
-                            <p class="btn-sm btn-danger btn-block" th:text="${product.getPrice() + ' VND'}"></p>
+                            <p class="btn-sm btn-danger btn-block" th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'DEFAULT', 0, 'DEFAULT') + ' VND'}"></p>
                         </div>
                         <div class="col-12">
                             <a th:href="@{/cart/buy/__${product.id}__}"

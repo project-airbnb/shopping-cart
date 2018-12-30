@@ -15,11 +15,13 @@
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
     <script>
-        function updateQuantity() {
+        function updateQuantity(my_quantity) {
+            var my_qua = $("#my_quantity").val();
+            if (my_qua > my_quantity) {
+                $("#my_quantity").val(my_quantity);
+            }
             $(document).ready(function () {
-                //$("input[name='quantity']").change(function () {
                 $("form#auto-submit").submit();
-                //});
             });
         }
 
@@ -119,11 +121,12 @@
                         <td style="width: 100px">Xoa</td>
                     </tr>
 
-                    <tr th:each="item : ${session.cart}" th:class="${item.product.quantity} <= 0 ? 'disabled-my-cart' : ''">
+                    <tr th:each="item : ${session.cart}"
+                        th:class="${item.product.quantity} <= 0 ? 'disabled-my-cart' : ''">
                         <td><a th:href="@{__${item.product.url + '-' + item.product.id}__}"
-                                th:text="${item.product.name}"></a></td>
-                        <td th:text="${item.product.price}"></td>
-                        <td th:text="${item.product.quantity} > 0 ? (${item.product.price} * ${item.quantity}) : 0"></td>
+                               th:text="${item.product.name}"></a></td>
+                        <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'DEFAULT', 0, 'DEFAULT')}"></td>
+                        <td th:text="${item.product.quantity} > 0 ? ${#numbers.formatDecimal(item.product.price * item.quantity, 0, 'DEFAULT', 0, 'DEFAULT') + ' VND'} : '0 VND'"></td>
                         <td><img width="80px" height="80px"
                                  th:src="${item.product.image}" alt=""></td>
                         <td>
@@ -134,8 +137,8 @@
                                 </button>
                                 <input style="width: 50px;border-radius: 0; float: left"
                                        class="text-center form-control-sm" type="number" min="1"
-                                       th:max="${item.product.quantity}" name="quantity"
-                                       th:value="${item.quantity}" onchange="updateQuantity();">
+                                       th:max="${item.product.quantity}" id="my_quantity" name="quantity"
+                                       th:value="${item.quantity}" th:onchange="'updateQuantity(' + ${item.product.quantity} + ');'">
                                 <button style="width:30px; border-radius: 0;clear: both;"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                         class="plus btn btn-info btn-sm">+
@@ -164,9 +167,10 @@
         <div class="col-md-3">
             <div class="col-md-12">
                 <h3>Tong gia</h3>
-                <h4 style="color: red" th:text="${session.cart} == null ? 0 : ${session.total_price}"></h4>
+                <h4 style="color: red"
+                    th:text="${session.cart} == null ? 0 : ${#numbers.formatDecimal(session.total_price, 0, 'DEFAULT', 0, 'DEFAULT') + ' VND'}"></h4>
             </div>
-            <div class="col-md-12" >
+            <div class="col-md-12">
                 <button class="btn btn-outline-warning" id="order" onclick="confirmOrder();">Xac Nhan Thanh Toan
                 </button>
             </div>
