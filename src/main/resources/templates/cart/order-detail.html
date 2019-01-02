@@ -15,6 +15,7 @@
 <div th:replace="fragments/navbar :: nav"></div>
 <div class="container">
     <form th:action="@{/order-success}" method="post" th:object="${order}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <div class="row">
             <div class="col-md-9">
                 <table class="table">

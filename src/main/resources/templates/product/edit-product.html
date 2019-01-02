@@ -9,6 +9,7 @@
 <div th:replace="fragments/navbar :: nav"></div>
 <div class="container">
     <form action="/edit-product" th:object="${product}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <input type="hidden" th:field="*{id}">
         <div class="form-group">
             <label>Ten San Pham</label>
