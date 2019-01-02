@@ -19,19 +19,24 @@
                     <a href="#" class="nav-item active nav-link">Giới thiệu</a>
                     <a href="#" class="nav-item active nav-link">Lịch sử</a>
                     <a href="#" class="nav item active nav-link">Địa điểm</a>
-
-                    <li class="nav-item dropdown">
+                    <button th:if="${#request.userPrincipal} == null" data-toggle="modal" data-target=".mode"
+                       class="btn btn-outline-info" >Đăng Nhập</button>
+                    <li th:if="${#request.userPrincipal}" class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dịch vụ </a>
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span th:text="${#request.userPrincipal.getName()}"></span></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a href="#" class="dropdown-item">Quân khu</a>
-                            <a href="#" class="dropdown-item">Quân khu</a>
-                            <a href="#" class="dropdown-item">Quân khu</a>
+                            <a href="/my-order" class="dropdown-item" id="order">Quản lý đơn hàng</a>
+                            <a href="#" class="dropdown-item">Thông tin cá nhân</a>
+                            <a href="/logout" class="dropdown-item">Đăng Xuất</a>
                         </div>
                     </li>
+                    <a href="#" class="nav item active nav-link"></a>
+                    <button class="btn btn-outline-light " id="cart" onclick="redirectCart();">Giỏ hàng</button>
                 </ul>
 
                 <form action="#" method="post" class="form-inline my-2 mylg-0">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <input type="search" name="buscar" id="buscar" class="form-control mr-sm-2"
                            placeholder="Tìm kiếm trong trang" aria-label="Buscar">
                     <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>

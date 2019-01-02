@@ -50,7 +50,7 @@ public class SercuritySpringAppConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(successHandler())
-                .failureUrl("/404")
+                .failureUrl("/403")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403");

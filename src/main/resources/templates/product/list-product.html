@@ -26,20 +26,6 @@
 <body>
 <div th:replace="fragments/navbar :: nav"></div>
 
-<!--login-->
-<th:block th:if="${#request.userPrincipal}">
-    <th:block th:text="${#request.userPrincipal.getName()}"></th:block>
-</th:block>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button class="btn btn-outline-light" data-toggle="modal" data-target=".mode">LOGIN</button>
-            <button class="btn btn-outline-dark" id="cart" onclick="redirectCart();">MY CART</button>
-            <button class="btn btn-outline-dark" id="order" onclick="redirectOrder();">MY ORDER</button>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-3">
