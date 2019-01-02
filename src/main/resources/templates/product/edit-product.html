@@ -6,6 +6,7 @@
     <style id="pageStyle"></style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: nav"></div>
 <div class="container">
     <form action="/edit-product" th:object="${product}" method="post">
         <input type="hidden" th:field="*{id}">

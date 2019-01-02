@@ -6,6 +6,8 @@
     <style id="pageStyle"></style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: nav"></div>
+
 <div class="container">
     <form action="/create-product" th:object="${product}" method="post">
         <div class="form-group">
