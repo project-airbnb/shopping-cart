@@ -16,4 +16,19 @@
             crossorigin="anonymous"></script><title>Trang Chu</title>
     <script th:include=":: #pageScript"></script>
     <style th:include=":: #pageStyle"></style>
+    <script>
+        function redirectCart() {
+            var origin = window.location.origin;   // Returns base URL (https://example.com)
+            $(document).ready(function () {
+                window.location.href = origin + "/cart";
+            });
+        }
+
+        function redirectOrder() {
+            var origin = window.location.origin;   // Returns base URL (https://example.com)
+            $(document).ready(function () {
+                window.location.href = origin + "/my-order";
+            });
+        }
+    </script>
 </head>
