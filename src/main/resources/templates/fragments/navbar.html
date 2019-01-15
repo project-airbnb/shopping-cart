@@ -32,7 +32,11 @@
                         </div>
                     </li>
                     <a href="#" class="nav item active nav-link"></a>
-                    <button class="btn btn-outline-light " id="cart" onclick="redirectCart();">Giỏ hàng</button>
+                    <button class="btn btn-outline-light " id="cart" onclick="redirectCart();">
+                        <img width="20px" height="20px" src="https://image.flaticon.com/icons/svg/60/60992.svg"/>
+                        Giỏ hàng
+                        <span style="color: red" th:if="${session.cart}" th:text="${session.cart.size()}"></span>
+                    </button>
                 </ul>
 
                 <form action="#" method="post" class="form-inline my-2 mylg-0">
