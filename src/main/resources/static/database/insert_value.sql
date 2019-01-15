@@ -95,8 +95,8 @@ insert into cart.quantity (id, quantity_one_product, order_id, product_id) value
 insert into cart.quantity (id, quantity_one_product, order_id, product_id) values (72, 15, 71, 37);
 
 
-insert into cart.user (id, username, password, email, phone, fullname, address, province) values (56, 'admin', '$2a$10$Aad4ySTi50xEni2QTpvXH.u.n/6gzp/Q5zyo6BBNRahbH0CvpoOfq', 'admin@gmail.com', null, null, null, null);
-insert into cart.user (id, username, password, email, phone, fullname, address, province) values (57, 'user', '$2a$10$Gngus93nlwKzagN22nz/nu4kbLGfNCEdeIOxDdRRyaxfUVLbiWiOS', 'member@gmail.com', null, null, null, null);
+insert into cart.user (id, username, password, email, phone, fullname, address, province) values (56, 'admin', '$2a$10$Aad4ySTi50xEni2QTpvXH.u.n/6gzp/Q5zyo6BBNRahbH0CvpoOfq', 'admin111@gmail.com', null, null, null, null);
+insert into cart.user (id, username, password, email, phone, fullname, address, province) values (57, 'user', '$2a$10$Gngus93nlwKzagN22nz/nu4kbLGfNCEdeIOxDdRRyaxfUVLbiWiOS', 'member111@gmail.com', null, null, null, null);
 
 insert into cart.user_role (user_id, role_id) values (56, 54);
 insert into cart.user_role (user_id, role_id) values (56, 55);
